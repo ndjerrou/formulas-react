@@ -1,23 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
-
+import {useState} from 'react'
 function App() {
+  const [situation, setSituation] = useState({
+    familyName: '',
+    firstName: '',
+  })
+
+  console.log(situation)
+
+  const handleChange = (e)=>{
+    console.log(e.target.name)
+     setSituation({...situation, [e.target.name]: e.target.value})
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <input 
+        placeholder="First Name"
+        onChange={handleChange}
+        value={situation.firstName}
+        name="firstName"
+      />
+      <input 
+        placeholder="Family Name"
+        onChange={handleChange}
+        value={situation.familyName} 
+        name="familyName"
+      />
     </div>
   );
 }
