@@ -13,6 +13,10 @@
   }
 }
 
+body {
+  background: tomato;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -35,4 +39,13 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+#container div {
+  margin-bottom: 20px;
+}
+#container {
+  padding: 15px;
+  background: gold;
+  width: 500px;
 }

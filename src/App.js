@@ -1,31 +1,100 @@
-import {useState} from 'react'
+import { useState } from "react";
+import SignUpForm from "./components/SignUpForm";
+
+import Input from "./components/Input";
+
+import "./App.css";
 function App() {
-  const [situation, setSituation] = useState({
-    familyName: '',
-    firstName: '',
-  })
+  const [data, setData] = useState({
+    firstName: "",
+    familyName: "",
+    checked: false,
+    favouriteTechno: ""
+  });
 
-  console.log(situation)
+  const { firstName, familyName, checked, favouriteTechno } = data;
 
-  const handleChange = (e)=>{
-    console.log(e.target.name)
-     setSituation({...situation, [e.target.name]: e.target.value})
-  }
+  const handleChange = (e) => {
+    const { value, name, checked, type } = e.target;
+
+    setData((prevState) => {
+      return {
+        ...prevState,
+        [name]: type === "checkbox" ? checked : value
+      };
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    console.log(data);
+    // send an async request
+    //sendData(data);
+  };
 
   return (
-    <div className="App">
-      <input 
-        placeholder="First Name"
-        onChange={handleChange}
-        value={situation.firstName}
-        name="firstName"
-      />
-      <input 
-        placeholder="Family Name"
-        onChange={handleChange}
-        value={situation.familyName} 
-        name="familyName"
-      />
+    <div id="container">
+      <form onSubmit={handleSubmit}>
+        <Input
+          desc="familyName"
+          value={familyName}
+          onChange={handleChange}
+          label="Nom de famille"
+          type="text"
+        />
+        <Input
+          desc="firstName"
+          value={firstName}
+          onChange={handleChange}
+          label="Prénom"
+          type="text"
+        />
+        {/*  //@ TODO : utiliser le Comp. Input à la place */}
+        <div>
+          <label htmlFor="isMajor">Cliquez si vous êtes majeurs</label>
+          <input
+            id="isMajor"
+            type="checkbox"
+            checked={checked}
+            onChange={handleChange}
+            name="checked"
+          />
+        </div>
+        {/* Radio Button */}
+        <h3>Quelle est techno préférée ?</h3>
+        <div>
+          <input
+            type="radio"
+            value="ReactJS"
+            checked={favouriteTechno === "ReactJS"}
+            name="favouriteTechno"
+            onChange={handleChange}
+          />
+          <label htmlfor="">ReactJS</label>
+        </div>
+        <div>
+          <input
+            type="radio"
+            value="NodeJS"
+            checked={favouriteTechno === "NodeJS"}
+            name="favouriteTechno"
+            onChange={handleChange}
+          />
+          <label htmlfor="">NodeJS</label>
+        </div>
+        <div>
+          <input
+            type="radio"
+            value="Typescript"
+            checked={favouriteTechno === "Typescript"}
+            name="favouriteTechno"
+            onChange={handleChange}
+          />
+          <label htmlfor="">TypeScript</label>
+        </div>
+        <button>Valider mes informations</button>
+      </form>
     </div>
   );
 }
